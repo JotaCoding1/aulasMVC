@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Empréstimo</title>
+</head>
+<body>
+  <h1>Empréstimo</h1>
+  <p>Data do empréstimo: <span th:text="${emprestimo.dataEmprestimo}"></span></p>
+  <p>Data de devolução: <span th:text="${emprestimo.dataDevolucao}"></span></p>
+  <p>Status: <span th:text="${emprestimo.status}"></span></p>
+  <a th:href="@{/emprestimos}">Voltar</a>
+</body>
+</html>
