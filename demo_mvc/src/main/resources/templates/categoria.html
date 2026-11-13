@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Categoria</title>
+</head>
+<body>
+  <h1 th:text="${categoria.nome}"></h1>
+  <p>Descrição: <span th:text="${categoria.descricao}"></span></p>
+  <p>Código: <span th:text="${categoria.codigo}"></span></p>
+  <a th:href="@{/categorias}">Voltar</a>
+</body>
+</html>
