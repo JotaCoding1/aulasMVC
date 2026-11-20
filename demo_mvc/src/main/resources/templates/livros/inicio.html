@@ -5,8 +5,37 @@
 </head>
 <body>
   <h1>Livros</h1>
+
+  <form th:action="@{/livros}" method="post">
+    <label>Titulo:
+      <input type="text" name="titulo" required>
+    </label>
+    <label>Autor:
+      <input type="text" name="autor" required>
+    </label>
+    <label>ISBN:
+      <input type="text" name="isbn" required>
+    </label>
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <h2>Lista de livros</h2>
+  <p th:if="${#lists.isEmpty(livros)}">Nenhum livro cadastrado.</p>
+  <ul th:if="${!#lists.isEmpty(livros)}">
+    <li th:each="livro, status : ${livros}">
+      <span th:text="${livro.titulo}"></span>
+      -
+      <span th:text="${livro.autor}"></span>
+      (ISBN: <span th:text="${livro.isbn}"></span>)
+      <a th:href="@{/livros/editar/{indice}(indice=${status.index})}">Editar</a>
+      <form th:action="@{/livros/excluir/{indice}(indice=${status.index})}"
+            method="post" style="display:inline">
+        <button type="submit">Excluir</button>
+      </form>
+    </li>
+  </ul>
+
   <nav>
-    <a th:href="@{/livros/livro}">Ver livro</a>
     <a th:href="@{/}">Voltar</a>
   </nav>
 </body>
