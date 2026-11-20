@@ -5,8 +5,36 @@
 </head>
 <body>
   <h1>Usuários</h1>
+
+  <form th:action="@{/usuarios}" method="post">
+    <label>Nome:
+      <input type="text" name="nome" required>
+    </label>
+    <label>E-mail:
+      <input type="email" name="email" required>
+    </label>
+    <label>Telefone:
+      <input type="text" name="telefone" required>
+    </label>
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <h2>Lista de usuários</h2>
+  <p th:if="${#lists.isEmpty(usuarios)}">Nenhum usuário cadastrado.</p>
+  <ul th:if="${!#lists.isEmpty(usuarios)}">
+    <li th:each="usuario, status : ${usuarios}">
+      <span th:text="${usuario.nome}"></span>
+      - <span th:text="${usuario.email}"></span>
+      (Telefone: <span th:text="${usuario.telefone}"></span>)
+      <a th:href="@{/usuarios/editar/{indice}(indice=${status.index})}">Editar</a>
+      <form th:action="@{/usuarios/excluir/{indice}(indice=${status.index})}"
+            method="post" style="display:inline">
+        <button type="submit">Excluir</button>
+      </form>
+    </li>
+  </ul>
+
   <nav>
-    <a th:href="@{/usuarios/usuario}">Ver usuário</a>
     <a th:href="@{/}">Voltar</a>
   </nav>
 </body>

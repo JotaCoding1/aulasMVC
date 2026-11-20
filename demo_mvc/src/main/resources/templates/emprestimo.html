@@ -4,10 +4,27 @@
   <title>Empréstimo</title>
 </head>
 <body>
-  <h1>Empréstimo</h1>
-  <p>Data do empréstimo: <span th:text="${emprestimo.dataEmprestimo}"></span></p>
-  <p>Data de devolução: <span th:text="${emprestimo.dataDevolucao}"></span></p>
-  <p>Status: <span th:text="${emprestimo.status}"></span></p>
+  <h1 th:if="${indice == null}">Empréstimo</h1>
+  <div th:if="${indice != null}">
+    <h1>Editar empréstimo</h1>
+    <form th:action="@{/emprestimos/editar/{indice}(indice=${indice})}" method="post">
+      <label>Data do empréstimo:
+        <input type="text" name="dataEmprestimo" th:value="${emprestimo.dataEmprestimo}" required>
+      </label>
+      <label>Data de devolução:
+        <input type="text" name="dataDevolucao" th:value="${emprestimo.dataDevolucao}" required>
+      </label>
+      <label>Status:
+        <input type="text" name="status" th:value="${emprestimo.status}" required>
+      </label>
+      <button type="submit">Salvar</button>
+    </form>
+  </div>
+  <div th:if="${indice == null}">
+    <p>Data do empréstimo: <span th:text="${emprestimo.dataEmprestimo}"></span></p>
+    <p>Data de devolução: <span th:text="${emprestimo.dataDevolucao}"></span></p>
+    <p>Status: <span th:text="${emprestimo.status}"></span></p>
+  </div>
   <a th:href="@{/emprestimos}">Voltar</a>
 </body>
 </html>

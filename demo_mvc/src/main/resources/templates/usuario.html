@@ -4,9 +4,26 @@
   <title>Usuário</title>
 </head>
 <body>
-  <h1 th:text="${usuario.nome}"></h1>
-  <p>E-mail: <span th:text="${usuario.email}"></span></p>
-  <p>Telefone: <span th:text="${usuario.telefone}"></span></p>
+  <h1 th:if="${indice == null}" th:text="${usuario.nome}"></h1>
+  <div th:if="${indice != null}">
+    <h1>Editar usuário</h1>
+    <form th:action="@{/usuarios/editar/{indice}(indice=${indice})}" method="post">
+      <label>Nome:
+        <input type="text" name="nome" th:value="${usuario.nome}" required>
+      </label>
+      <label>E-mail:
+        <input type="email" name="email" th:value="${usuario.email}" required>
+      </label>
+      <label>Telefone:
+        <input type="text" name="telefone" th:value="${usuario.telefone}" required>
+      </label>
+      <button type="submit">Salvar</button>
+    </form>
+  </div>
+  <div th:if="${indice == null}">
+    <p>E-mail: <span th:text="${usuario.email}"></span></p>
+    <p>Telefone: <span th:text="${usuario.telefone}"></span></p>
+  </div>
   <a th:href="@{/usuarios}">Voltar</a>
 </body>
 </html>
