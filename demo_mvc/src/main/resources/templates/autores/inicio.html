@@ -5,8 +5,36 @@
 </head>
 <body>
   <h1>Autores</h1>
+
+  <form th:action="@{/autores}" method="post">
+    <label>Nome:
+      <input type="text" name="nome" required>
+    </label>
+    <label>Nacionalidade:
+      <input type="text" name="nacionalidade" required>
+    </label>
+    <label>Data de nascimento:
+      <input type="text" name="dataNascimento" required>
+    </label>
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <h2>Lista de autores</h2>
+  <p th:if="${#lists.isEmpty(autores)}">Nenhum autor cadastrado.</p>
+  <ul th:if="${!#lists.isEmpty(autores)}">
+    <li th:each="autor, status : ${autores}">
+      <span th:text="${autor.nome}"></span>
+      - <span th:text="${autor.nacionalidade}"></span>
+      (Nascimento: <span th:text="${autor.dataNascimento}"></span>)
+      <a th:href="@{/autores/editar/{indice}(indice=${status.index})}">Editar</a>
+      <form th:action="@{/autores/excluir/{indice}(indice=${status.index})}"
+            method="post" style="display:inline">
+        <button type="submit">Excluir</button>
+      </form>
+    </li>
+  </ul>
+
   <nav>
-    <a th:href="@{/autores/autor}">Ver autor</a>
     <a th:href="@{/}">Voltar</a>
   </nav>
 </body>

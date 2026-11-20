@@ -4,9 +4,26 @@
   <title>Categoria</title>
 </head>
 <body>
-  <h1 th:text="${categoria.nome}"></h1>
-  <p>Descrição: <span th:text="${categoria.descricao}"></span></p>
-  <p>Código: <span th:text="${categoria.codigo}"></span></p>
+  <h1 th:if="${indice == null}" th:text="${categoria.nome}"></h1>
+  <div th:if="${indice != null}">
+    <h1>Editar categoria</h1>
+    <form th:action="@{/categorias/editar/{indice}(indice=${indice})}" method="post">
+      <label>Nome:
+        <input type="text" name="nome" th:value="${categoria.nome}" required>
+      </label>
+      <label>Descrição:
+        <input type="text" name="descricao" th:value="${categoria.descricao}" required>
+      </label>
+      <label>Código:
+        <input type="text" name="codigo" th:value="${categoria.codigo}" required>
+      </label>
+      <button type="submit">Salvar</button>
+    </form>
+  </div>
+  <div th:if="${indice == null}">
+    <p>Descrição: <span th:text="${categoria.descricao}"></span></p>
+    <p>Código: <span th:text="${categoria.codigo}"></span></p>
+  </div>
   <a th:href="@{/categorias}">Voltar</a>
 </body>
 </html>

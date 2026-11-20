@@ -5,8 +5,36 @@
 </head>
 <body>
   <h1>Categorias</h1>
+
+  <form th:action="@{/categorias}" method="post">
+    <label>Nome:
+      <input type="text" name="nome" required>
+    </label>
+    <label>Descrição:
+      <input type="text" name="descricao" required>
+    </label>
+    <label>Código:
+      <input type="text" name="codigo" required>
+    </label>
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <h2>Lista de categorias</h2>
+  <p th:if="${#lists.isEmpty(categorias)}">Nenhuma categoria cadastrada.</p>
+  <ul th:if="${!#lists.isEmpty(categorias)}">
+    <li th:each="categoria, status : ${categorias}">
+      <span th:text="${categoria.nome}"></span>
+      - <span th:text="${categoria.descricao}"></span>
+      (Código: <span th:text="${categoria.codigo}"></span>)
+      <a th:href="@{/categorias/editar/{indice}(indice=${status.index})}">Editar</a>
+      <form th:action="@{/categorias/excluir/{indice}(indice=${status.index})}"
+            method="post" style="display:inline">
+        <button type="submit">Excluir</button>
+      </form>
+    </li>
+  </ul>
+
   <nav>
-    <a th:href="@{/categorias/categoria}">Ver categoria</a>
     <a th:href="@{/}">Voltar</a>
   </nav>
 </body>

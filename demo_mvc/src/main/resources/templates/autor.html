@@ -4,9 +4,26 @@
   <title>Autor</title>
 </head>
 <body>
-  <h1 th:text="${autor.nome}"></h1>
-  <p>Nacionalidade: <span th:text="${autor.nacionalidade}"></span></p>
-  <p>Data de nascimento: <span th:text="${autor.dataNascimento}"></span></p>
+  <h1 th:if="${indice == null}" th:text="${autor.nome}"></h1>
+  <div th:if="${indice != null}">
+    <h1>Editar autor</h1>
+    <form th:action="@{/autores/editar/{indice}(indice=${indice})}" method="post">
+      <label>Nome:
+        <input type="text" name="nome" th:value="${autor.nome}" required>
+      </label>
+      <label>Nacionalidade:
+        <input type="text" name="nacionalidade" th:value="${autor.nacionalidade}" required>
+      </label>
+      <label>Data de nascimento:
+        <input type="text" name="dataNascimento" th:value="${autor.dataNascimento}" required>
+      </label>
+      <button type="submit">Salvar</button>
+    </form>
+  </div>
+  <div th:if="${indice == null}">
+    <p>Nacionalidade: <span th:text="${autor.nacionalidade}"></span></p>
+    <p>Data de nascimento: <span th:text="${autor.dataNascimento}"></span></p>
+  </div>
   <a th:href="@{/autores}">Voltar</a>
 </body>
 </html>
